@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub 中文操作手册</title>
+<style>
+:root {
+  --bg: #f6f8fa;
+  --card: #ffffff;
+  --border: #d0d7de;
+  --text: #1f2328;
+  --text-secondary: #656d76;
+  --accent: #2da44e;
+  --accent-dark: #1a7f37;
+  --orange: #d96c00;
+  --red: #cf222e;
+  --blue: #0969da;
+  --radius: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  padding: 20px;
+}
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+h1 .logo {
+  width: 36px;
+  height: 36px;
+}
+.subtitle {
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  font-size: 15px;
+}
+.toc {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 28px;
+  box-shadow: var(--shadow);
+}
+.toc h2 { font-size: 16px; margin-bottom: 12px; color: var(--text-secondary); }
+.toc ol { padding-left: 20px; }
+.toc li { margin-bottom: 6px; }
+.toc a { color: var(--blue); text-decoration: none; font-size: 14px; }
+.toc a:hover { text-decoration: underline; }
+
+.section {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+.section h2 {
+  font-size: 20px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section .badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 2px 10px;
+  border-radius: 20px;
+  margin-left: 8px;
+}
+.badge-public { background: #ddf4ff; color: var(--blue); }
+.badge-private { background: #fff1e5; color: var(--orange); }
+.badge-danger { background: #ffebe9; color: var(--red); }
+.section .desc {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.step {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding: 16px;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  background: #fafbfc;
+}
+.step:last-child { margin-bottom: 0; }
+.step-num {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+}
+.step-content { flex: 1; min-width: 0; }
+.step-title {
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+.step-text {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.7;
+}
+.step-text code {
+  background: #e8eaed;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+}
+
+/* UI 标注模拟 */
+.ui-callout {
+  border: 2px dashed var(--orange);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin: 10px 0;
+  background: #fff8f0;
+  position: relative;
+}
+.ui-callout::before {
+  content: "🔍 在界面上找到这个位置";
+  display: block;
+  font-size: 12px;
+  color: var(--orange);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.ui-callout p { font-size: 13px; color: #555; }
+
+/* 模拟GitHub界面块 */
+.ui-mockup {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 12px 0;
+  font-size: 13px;
+}
+.ui-mockup-header {
+  background: #f6f8fa;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.ui-mockup-body {
+  padding: 14px;
+  background: #fff;
+}
+.ui-mockup-label {
+  display: inline-block;
+  background: var(--orange);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 1px 8px;
+  border-radius: 3px;
+  margin-right: 4px;
+}
+
+/* 箭头指示 */
+.arrow-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 8px 0;
+  padding: 8px 12px;
+  background: #f0f6ff;
+  border-left: 3px solid var(--blue);
+  border-radius: 4px;
+  font-size: 13px;
+}
+.arrow-box .arrow { color: var(--blue); font-size: 18px; flex-shrink: 0; }
+
+/* 截图展示 */
+.screenshot-area {
+  background: #f0f2f4;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px;
+  margin: 12px 0;
+  text-align: center;
+  color: var(--text-secondary);
+}
+.screenshot-area img {
+  max-width: 100%;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+.screenshot-caption {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 6px;
+}
+
+/* 高亮标记点 */
+.dot { color: var(--orange); font-weight: 700; }
+.dot-blue { color: var(--blue); font-weight: 700; }
+.dot-red { color: var(--red); font-weight: 700; }
+.dot-green { color: var(--accent); font-weight: 700; }
+
+/* 警告框 */
+.warning {
+  background: #fff8c5;
+  border: 1px solid #d4a72c;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 13px;
+}
+.warning strong { color: #9a6700; }
+.tip {
+  background: #ddf4ff;
+  border: 1px solid #54aeff;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 13px;
+}
+.tip strong { color: var(--blue); }
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+@media (max-width: 640px) {
+  body { padding: 12px; }
+  .section { padding: 16px; }
+  .step { flex-direction: column; gap: 8px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>
+  <svg class="logo" viewBox="0 0 16 16" fill="#1f2328"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+  GitHub 中文操作手册
+</h1>
+<p class="subtitle">手把手教你新建仓库、上传文件、删除文件、删除仓库，每一步都告诉你点哪里</p>
+
+<div class="toc">
+  <h2>📑 目录</h2>
+  <ol>
+    <li><a href="#s1">新建公开仓库（所有人都能看到）</a></li>
+    <li><a href="#s2">新建私有仓库（只有自己能看到）</a></li>
+    <li><a href="#s3">上传文件到仓库</a></li>
+    <li><a href="#s4">删除仓库里的文件</a></li>
+    <li><a href="#s5">删除整个仓库</a></li>
+  </ol>
+</div>
+
+<!-- ======================== 第1节 ======================== -->
+<div class="section" id="s1">
+  <h2>📦 新建公开仓库 <span class="badge badge-public">公开</span></h2>
+  <p class="desc">公开仓库所有人都可以在网上看到，适合开源项目。操作全程在网页上完成，不需要装任何软件。</p>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <div class="step-title">登录 GitHub，点击右上角 <span class="dot">➕</span> 号</div>
+      <div class="step-text">
+        打开 <code>github.com</code> 并登录。<strong class="dot">①</strong> 在页面右上角找到你的头像左边有一个 <strong>"+"</strong> 号按钮，点击它。
+      </div>
+      <div class="ui-callout">
+        <p>📸 下图红框位置就是 "+" 号按钮</p>
+        <div class="ui-mockup">
+          <div class="ui-mockup-header">
+            <span>🔍 搜索</span>
+            <span style="margin-left:auto;display:flex;gap:6px;">
+              <span class="ui-mockup-label">① 点这里</span>
+              <span style="background:#eee;padding:2px 10px;border-radius:4px;">+</span>
+              <span>头像 ▼</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="arrow-box">
+        <span class="arrow">➡️</span>
+        <span>点击 <strong>"+"</strong> 后弹出的菜单里选择 <strong>"New repository"</strong>（新建仓库）</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <div class="step-title">填写仓库信息</div>
+      <div class="step-text">
+        跳转到新建仓库页面后，你需要填写以下几项：
+      </div>
+      <div class="ui-mockup">
+        <div class="ui-mockup-header">
+          <span>Create a new repository</span>
+        </div>
+        <div class="ui-mockup-body" style="display:grid;gap:12px;">
+          <div><span class="ui-mockup-label">②</span> <strong>Owner</strong>：选你自己（默认就是你的账号）</div>
+          <div><span class="ui-mockup-label">③</span> <strong>Repository name</strong>：输入仓库名，比如 <code>my-project</code></div>
+          <div><span class="ui-mockup-label">④</span> <strong>Description</strong>（选填）：写一句描述，比如「我的第一个项目」</div>
+          <div><span class="ui-mockup-label">⑤</span> <strong>Public / Private</strong>：选 <strong>Public</strong>（公开，所有人都可见）</div>
+          <div><span class="ui-mockup-label">⑥</span> <strong>Add a README file</strong>：勾上，自动生成说明文件</div>
+        </div>
+      </div>
+      <div class="tip">
+        <strong>💡 提示：</strong>仓库名只能用<strong>英文、数字、横线(-)、下划线(_)</strong>，不能用中文和空格。
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <div class="step-title">点击 <span class="dot-green">"Create repository"</span> 绿色按钮</div>
+      <div class="step-text">
+        页面拉到最下面，有一个绿色的 <strong>"Create repository"</strong> 按钮，点击它。几秒钟后仓库就创建好了，会自动跳转到仓库页面。
+      </div>
+      <div class="arrow-box">
+        <span class="arrow">✅</span>
+        <span><strong>创建完成！</strong>你会在新页面上看到你的仓库，里面有一个自动生成的 README.md 文件。</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== 第2节 ======================== -->
+<div class="section" id="s2">
+  <h2>🔒 新建私有仓库 <span class="badge badge-private">私有</span></h2>
+  <p class="desc">私有仓库只有你自己（和你添加的协作者）能看到，适合公司项目或个人代码。</p>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <div class="step-title">跟公开仓库的前两步一样</div>
+      <div class="step-text">
+        登录后点右上角 <strong class="dot">➕</strong> → <strong>"New repository"</strong>，然后填写仓库名。
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <div class="step-title">关键一步：选 <span class="dot">Private</span></div>
+      <div class="step-text">
+        在仓库信息页面的 <strong>"Public / Private"</strong> 选项处，<strong class="dot">选择 Private</strong>（私有）。这就是公开和私有的唯一区别。
+      </div>
+      <div class="ui-mockup">
+        <div class="ui-mockup-body">
+          <div style="display:flex;gap:16px;align-items:center;">
+            <div>
+              <input type="radio" checked style="accent-color:#2da44e;"> <strong>Public</strong>
+              <div style="font-size:12px;color:#666;margin-left:22px;">任何人都能看</div>
+            </div>
+            <div>
+              <input type="radio" style="accent-color:#d96c00;"> <strong class="dot">Private</strong> ← <strong>选这个</strong>
+              <div style="font-size:12px;color:#666;margin-left:22px;">只有你能看</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <div class="step-title">点击创建</div>
+      <div class="step-text">
+        勾选 README，然后点击绿色 <strong>"Create repository"</strong> 按钮，私有仓库就建好了。页面上会在仓库名旁边显示一个 <strong>"Private"</strong> 标签，表示这是私有的。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== 第3节 ======================== -->
+<div class="section" id="s3">
+  <h2>📤 上传文件到仓库</h2>
+  <p class="desc">不用装 Git 软件，直接在浏览器里上传文件，适合小文件、配置文件、图片等。</p>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <div class="step-title">进入你的仓库页面，找到 <span class="dot">"Add file"</span> 按钮</div>
+      <div class="step-text">
+        打开你的仓库（比如 <code>github.com/你的用户名/项目名</code>），在文件列表的右上方，有一个 <strong class="dot">"Add file"</strong> 下拉按钮。
+      </div>
+      <div class="ui-callout">
+        <p>📸 仓库页面上方靠右的位置，<strong>"Code" 绿色按钮左边</strong>，就是 "Add file"</p>
+      </div>
+      <div class="ui-mockup">
+        <div class="ui-mockup-header">
+          <span>📁 你的仓库名</span>
+          <span style="margin-left:auto;display:flex;gap:8px;">
+            <span style="background:#eee;padding:3px 10px;border-radius:4px;">Go to file</span>
+            <span class="ui-mockup-label" style="background:var(--orange);">① Add file ▼</span>
+            <span style="background:var(--accent);color:#fff;padding:3px 12px;border-radius:4px;"> Code ▼</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <div class="step-title">选择 <span class="dot">"Upload files"</span></div>
+      <div class="step-text">
+        点击 <strong>"Add file"</strong> 后弹出两个选项：<br>
+        <span style="display:inline-block;background:#f0f0f0;padding:2px 8px;border-radius:4px;margin:4px 0;">Create new file</span>（新建文件）<br>
+        <span style="display:inline-block;background:#f0f0f0;padding:2px 8px;border-radius:4px;margin:4px 0;"><strong class="dot">Upload files</strong></span>（<strong>上传文件</strong>）← <strong>选这个</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <div class="step-title">拖拽或选择要上传的文件</div>
+      <div class="step-text">
+        进入上传页面后，你可以：
+        <ul style="margin:6px 0 0 18px;">
+          <li>直接把文件<strong>从电脑文件夹拖进来</strong></li>
+          <li>或者点击 <strong>"choose your files"</strong> 从文件选择框里选</li>
+        </ul>
+      </div>
+      <div class="ui-callout">
+        <p>📸 页面上有一个很大的虚线框，写"Drag files here to add them to your repository"，就是这里拖文件</p>
+      </div>
+      <div class="warning">
+        <strong>⚠️ 注意：</strong>每次上传<strong>最多 100 个文件</strong>，单个文件不能超过 <strong>25MB</strong>。大文件需要用 Git 或 Git LFS。
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-content">
+      <div class="step-title">填写提交信息，点击 <span class="dot-green">"Commit changes"</span></div>
+      <div class="step-text">
+        上传完文件后，页面往下拉：
+        <ul style="margin:6px 0 0 18px;">
+          <li><strong>Commit message</strong>（必填）：写一句说明，比如「添加了配置文件」</li>
+          <li><strong>Extended description</strong>（选填）：详细说明</li>
+          <li>然后点击绿色的 <strong>"Commit changes"</strong> 按钮</li>
+        </ul>
+      </div>
+      <div class="arrow-box">
+        <span class="arrow">✅</span>
+        <span>文件就上传成功了，页面会自动跳回仓库，你会看到新文件出现在文件列表里。</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== 第4节 ======================== -->
+<div class="section" id="s4">
+  <h2>🗑️ 删除仓库里的文件</h2>
+  <p class="desc">直接在网页上删除文件，不需要装任何软件。每个文件都可以单独删除。</p>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <div class="step-title">进入仓库，找到要删除的文件</div>
+      <div class="step-text">
+        打开你的仓库，在文件列表里<strong>点击你要删除的那个文件</strong>（不是勾选框，是文件名）。
+      </div>
+      <div class="ui-callout">
+        <p>📸 文件列表里每个文件名都是蓝色可点击的链接，点一下进入文件详情页面</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <div class="step-title">点击文件右上角的 <span class="dot">垃圾桶图标 🗑️</span></div>
+      <div class="step-text">
+        进入文件详情页后，在文件内容的上方工具栏里，找到 <strong class="dot">垃圾桶图标</strong>（Delete this file）。鼠标移上去会显示 "Delete this file"。<strong>点击它。</strong>
+      </div>
+      <div class="ui-mockup">
+        <div class="ui-mockup-header">
+          <span>📄 README.md</span>
+          <span style="margin-left:auto;display:flex;gap:6px;">
+            <span style="background:#eee;padding:2px 8px;border-radius:3px;">✏️</span>
+            <span class="ui-mockup-label" style="background:var(--red);">① 🗑️ 点这里删除</span>
+            <span style="background:#eee;padding:2px 8px;border-radius:3px;">⋯</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <div class="step-title">确认删除，点击 <span class="dot-red">"Commit changes"</span></div>
+      <div class="step-text">
+        点击垃圾桶后，GitHub 会要求你确认：
+        <ul style="margin:6px 0 0 18px;">
+          <li><strong>Commit message</strong>：GitHub 会自动填好 "Delete 文件名"</li>
+          <li>确认无误后，点击底部的红色/绿色 <strong>"Commit changes"</strong> 按钮</li>
+        </ul>
+      </div>
+      <div class="arrow-box">
+        <span class="arrow">✅</span>
+        <span>文件就被删除了，仓库里不再有这个文件。</span>
+      </div>
+      <div class="warning">
+        <strong>⚠️ 注意：</strong>删除一个文件后，这个文件的<strong>历史记录仍然存在</strong>。你随时可以回到之前的提交记录找回它。不是彻底消失。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== 第5节 ======================== -->
+<div class="section" id="s5">
+  <h2>⛔ 删除整个仓库 <span class="badge badge-danger">危险操作</span></h2>
+  <p class="desc">删除仓库会把里面的所有代码、Issues、Pull Requests 全部删掉，<strong>不可恢复</strong>。操作前一定要确认。</p>
+
+  <div class="warning">
+    <strong>⚠️ 重要警告：</strong>删除仓库是<strong>不可逆</strong>的。一旦删除，里面的所有文件、提交记录、Issues、Wiki 全部消失，无法找回。除非仓库被 fork 过，否则数据彻底丢失。
+  </div>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <div class="step-title">进入要删除的仓库，点击顶部 <span class="dot">"Settings"</span></div>
+      <div class="step-text">
+        打开你的仓库页面，在顶部导航标签栏（Code / Issues / Pull requests 那一行）的最右边，找到 <strong class="dot">"Settings"</strong>（设置），点击它。
+      </div>
+      <div class="ui-callout">
+        <p>📸 Settings 在导航栏最右边，如果窗口窄了可能在 "..." 折叠菜单里</p>
+      </div>
+      <div class="ui-mockup">
+        <div class="ui-mockup-header">
+          <span style="display:flex;gap:12px;flex-wrap:wrap;font-size:13px;">
+            <span>Code</span> <span>Issues</span> <span>Pull requests</span>
+            <span>Actions</span> <span>Projects</span> <span>Wiki</span>
+            <span>Security</span> <span>Insights</span>
+            <span class="ui-mockup-label" style="background:var(--blue);">① Settings</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <div class="step-title">页面拉到最底部，找到 <span class="dot-red">"Delete this repository"</span></div>
+      <div class="step-text">
+        进入 Settings 页面后，<strong>一直往下拉</strong>，拉到页面最底部。你会看到一个 <strong class="dot-red">红色区域的 "Delete this repository"</strong> 按钮。
+      </div>
+      <div class="ui-callout">
+        <p>📸 Danger Zone（危险区域）在 Settings 页面最底部，背景是红色边框，里面有删除仓库的按钮</p>
+      </div>
+      <div class="ui-mockup">
+        <div class="ui-mockup-body" style="border:2px solid var(--red);border-radius:6px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <strong style="color:var(--red);">Danger Zone</strong>
+              <div style="font-size:12px;color:#666;">危险操作区</div>
+            </div>
+            <span style="background:var(--red);color:#fff;padding:6px 14px;border-radius:4px;font-size:13px;">
+              Delete this repository
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <div class="step-title">按照提示输入仓库名确认</div>
+      <div class="step-text">
+        点击 "Delete this repository" 后，GitHub 会弹出一个对话框要求你<strong>输入要删除的仓库名称</strong>来确认（比如 <code>你的用户名/仓库名</code>）。
+      </div>
+      <div class="ui-mockup">
+        <div class="ui-mockup-body">
+          <div style="text-align:center;padding:10px;">
+            <div style="font-size:18px;font-weight:600;color:var(--red);margin-bottom:8px;">⚠️ 确认删除</div>
+            <div style="font-size:13px;margin-bottom:10px;">请输入 <strong style="color:var(--red);">你的用户名/仓库名</strong> 确认删除</div>
+            <div style="border:1px solid var(--border);padding:6px 10px;border-radius:4px;width:60%;margin:0 auto 10px;">
+              <span style="color:#aaa;">输入仓库全名...</span>
+            </div>
+            <div style="background:var(--red);color:#fff;padding:6px 14px;border-radius:4px;display:inline-block;font-size:13px;">
+              I understand, delete this repository
+            </div>
+            <div style="font-size:12px;color:var(--red);margin-top:8px;">这个操作不可撤销，请确认</div>
+          </div>
+        </div>
+      </div>
+      <div class="arrow-box">
+        <span class="arrow">✅</span>
+        <span>输入正确后，按钮会变成可点击状态，点击它仓库就彻底删除了。</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-content">
+      <div class="step-title">删除后的页面</div>
+      <div class="step-text">
+        删除成功后，GitHub 会自动跳转到你的个人主页（<code>github.com/你的用户名</code>），刚才那个仓库已经不存在了。如果删错了，<strong>可以在几天内通过联系 GitHub 客服恢复</strong>，但不保证一定能找回。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== 附录 ======================== -->
+<div class="section">
+  <h2>📋 常见问题</h2>
+
+  <div style="margin-top:12px;">
+    <div style="font-weight:600;margin-bottom:4px;">❓ 仓库名能用中文吗？</div>
+    <div style="font-size:14px;color:#555;margin-bottom:16px;">
+      不能。仓库名只能使用<strong>英文、数字、横线(-)、下划线(_)、点(.)</strong>。URL 地址不支持中文。
+    </div>
+
+    <div style="font-weight:600;margin-bottom:4px;">❓ 上传的文件有大小限制吗？</div>
+    <div style="font-size:14px;color:#555;margin-bottom:16px;">
+      网页上传单个文件不能超过 <strong>25MB</strong>。大于 25MB 的文件需要用 Git 命令行或者 Git LFS。
+    </div>
+
+    <div style="font-weight:600;margin-bottom:4px;">❓ 私有仓库要收费吗？</div>
+    <div style="font-size:14px;color:#555;margin-bottom:16px;">
+      GitHub 的免费账号可以创建<strong>无限数量的私有仓库</strong>，协作者不超过 3 人就不收费。超过 3 人需要付费。
+    </div>
+
+    <div style="font-weight:600;margin-bottom:4px;">❓ 公开仓库能改成私有吗？</div>
+    <div style="font-size:14px;color:#555;margin-bottom:16px;">
+      可以的。在仓库 Settings 页面拉到最下面，Danger Zone 里有 <strong>"Change visibility"</strong> 选项，可以把公开改成私有。
+    </div>
+
+    <div style="font-weight:600;margin-bottom:4px;">❓ 误删了文件能恢复吗？</div>
+    <div style="font-size:14px;color:#555;margin-bottom:16px;">
+      能。Git 会记录所有历史版本。在仓库页面点击 <strong>" commits"</strong>（提交历史），找到删除文件的那次提交，点进去把文件内容复制出来就行。
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  制作于 2026年6月 · 基于 GitHub 实际界面制作
+</div>
+
+</div>
+</body>
+</html>
