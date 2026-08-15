@@ -23,7 +23,7 @@ td { border:1px solid #ddd; padding:5px 10px; } tr:nth-child(even) { background:
 <h1>多重保障体系下的智能体</h1>
 <div class="subtitle" style="text-align:center;color:#888;font-size:11pt;margin-bottom:4px;">——基于 Hermes Agent 的工程实践与实证研究</div>
 <div class="version-note">V2 · 2026-08-01（V1 数据截至 2026-06-08，本版为跨平台迁移后的全面更新）</div>
-<div class="author-info">新宝<sup>1</sup><br><span style="font-size:9.5pt;">(1. 深圳硬件研发中心，深圳 518000)</span></div>
+<div class="author-info">胡新宝<sup>1</sup><br><span style="font-size:9.5pt;">(1. 深圳硬件研发中心，深圳 518000)</span></div>
 
 <div class="abstract-box">
 <p><strong>摘要：</strong>以LLM为核心的智能体系统在实际应用中面临可靠性、成本控制、安全防护与自主进化等多重挑战，现有研究多聚焦于单点能力增强，缺乏系统化的工程解决方案。本文基于长期运行的Hermes Agent系统，提出并实践了一套涵盖八层模块化架构、三档智能模型路由、四级记忆存储体系与多层看门狗互检机制的多重保障体系。系统历经Windows与macOS双平台演进，当前在macOS环境中由launchd守护持续稳定运行，覆盖Telegram、QQ、钉钉、飞书、WhatsApp五大通信平台。在模型体系方面，系统以2026年主流的DeepSeek-V4-Flash（正式版）为在线主力，配置MiniMax、GLM、本地Ollama三级降级链，并结合国内本地模型实现成本优化。在知识积累方面，系统积累了百余个可复用技能与持久记忆，覆盖电子工程、自愈运维、软件开发等多个技术领域。V2版本新增外网数据大屏、花生壳穿透自愈看门狗、跨平台消息池子延续与跨平台任务台账等能力。本文详细阐述了该保障体系的设计原理、各层实现细节与实战验证结果，为构建高可靠、低成本、可自主进化的LLM智能体系统提供了可复用的工程范式与实证数据。</p>
@@ -170,6 +170,6 @@ td { border:1px solid #ddd; padding:5px 10px; } tr:nth-child(even) { background:
 
 <div class="footnote">— 基于 Hermes Agent 实战数据撰写，数据截至 2026年8月1日（V2） —</div>
 
-<div class="footnote">© 2026 新宝（xinbao-151）· 本作品采用 <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank">CC BY 4.0</a> 许可 · 修改/分发/商用须保留原作者署名</div>
+<div class="footnote">© 2026 胡新宝（xinbao-151）· 本作品采用 <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank">CC BY 4.0</a> 许可 · 修改/分发/商用须保留原作者署名</div>
 
 </div></body></html>
